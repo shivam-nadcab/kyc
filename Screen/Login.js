@@ -1,25 +1,55 @@
 import React, { useState } from 'react';
+import { initializeApp } from '@react-native-firebase/app';
+
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LottieView from 'lottie-react-native';
+import auth from '@react-native-firebase/auth';
+import { useNavigatcion } from '@react-navigation/native';
+
 
 const Login = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [confirm, setConfirm] = useState(null);
 
-  const handleContinue = () => {
-    console.log('Phone Number:', phoneNumber);
-    navigation.navigate('Details')
+  async function signInWithPhoneNumber(phoneNumber) {
+    const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+    setConfirm(confirmation);
+  }
+
+  const handleContinue = async () => {
+    try {
+      // Validate phone number format (you may customize this based on your requirements)
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!phoneRegex.test(phoneNumber)) {
+        console.log('Invalid phone number format');
+        return;
+      }
+
+      // Format the phone number for Firebase (assuming it's a 10-digit US number)
+      const formattedPhoneNumber = `+1${phoneNumber}`;
+
+      // Send OTP using Firebase phone authentication
+      const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
+      setPhoneNumber(''); // Clear the input after sending OTP
+
+      // Navigate to the OTP screen with confirmation object as a parameter
+      navigation.navigate('OTP', { confirmation });
+    } catch (error) {
+      console.error('Error sending OTP:', error.message);
+      // Handle error (show an alert, log, etc.)
+    }
   };
 
   return (
-    
+
     <LinearGradient colors={['#fffafa', '#fffafa', '#fffafa']} style={styles.linearGradient}>
       <View style={styles.textContainer}>
         <Text style={styles.title}>Continue with Phone</Text>
       </View>
       <View style={styles.imgContainer}>
-        <LottieView source={require('../assets/animation/mobileOtp.json')} autoPlay loop style={styles.image}  />
+        <LottieView source={require('../assets/animation/mobileOtp.json')} autoPlay loop style={styles.image} />
       </View>
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle} numberOfLines={2}>
@@ -50,10 +80,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textContainer:{
-    display:'flex',
-    justifyContent:'center',
-    flexDirection:'row',
+  textContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
     // backgroundColor:'red'
   },
   title: {
@@ -62,12 +92,12 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: hp('5'),
     // marginBottom: hp('5'),
-   
+
   },
-  imgContainer:{
-    display:'flex',
-    justifyContent:'center',
-    flexDirection:'row',
+  imgContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
 
   image: {
@@ -76,16 +106,16 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     // backgroundColor:'green',
     // marginTop:hp('5'),
-    marginBottom:hp('5')
+    marginBottom: hp('5')
   },
-  subtitleContainer:{
-    display:'flex',
-    justifyContent:'center',
-    flexDirection:'row',
-    alignItems:'center',
-    width:wp('50%'),
+  subtitleContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: wp('50%'),
     // backgroundColor:'green',
-    marginLeft:wp('25')
+    marginLeft: wp('25')
   },
   subtitle: {
     fontSize: 16,

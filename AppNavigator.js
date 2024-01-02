@@ -1,8 +1,9 @@
 // AppNavigator.js
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Screen/Login';
 import Details from './Screen/Details';
+import OtpScreen from './Screen/OtpScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,12 +13,12 @@ const AppNavigator = () => {
       <Stack.Screen
         name="Login"
         component={Login}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Details"
-        component={Details}
-        options={{headerShown: false}}
+        name="OtpScreen"
+        component={OtpScreen}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
