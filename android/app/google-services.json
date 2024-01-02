@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "163532266757",
+    "project_id": "user-kyc",
+    "storage_bucket": "user-kyc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163532266757:android:f204ceb482bfded9bf6b6c",
+        "android_client_info": {
+          "package_name": "com.kycc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR0_IUQi5lIG76LA-ZHHtMZ2zkHUZwF2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

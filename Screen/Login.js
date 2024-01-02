@@ -10,7 +10,6 @@ const Login = ({ navigation }) => {
   const handleContinue = () => {
     console.log('Phone Number:', phoneNumber);
     navigation.navigate('Details')
-    // TODO: Proceed to the next step (e.g., send verification code)
   };
 
   return (
@@ -21,7 +20,6 @@ const Login = ({ navigation }) => {
       </View>
       <View style={styles.imgContainer}>
         <LottieView source={require('../assets/animation/mobileOtp.json')} autoPlay loop style={styles.image}  />
-        {/* <Image source={{ uri: 'https://mojoauth.com/assets/images/sms-authentication.svg' }} style={styles.image} /> */}
       </View>
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle} numberOfLines={2}>
