@@ -28,7 +28,7 @@ const Login = ({ navigation }) => {
       }
 
       // Format the phone number for Firebase (assuming it's a 10-digit US number)
-      const formattedPhoneNumber = `+1${phoneNumber}`;
+      const formattedPhoneNumber = `+91${phoneNumber}`;
 
       // Send OTP using Firebase phone authentication
       const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
@@ -53,7 +53,7 @@ const Login = ({ navigation }) => {
       </View>
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle} numberOfLines={2}>
-          You will receive a 4-digit code to verify next.
+          You will receive a 6-digit code to verify next.
         </Text>
       </View>
       <View style={styles.inputContainer}>
